@@ -11,6 +11,9 @@ Guess:
 <p th:text="${guess}"></p>
 Rnd:
 <p th:text="${rnd}"></p>
+
+    <h1 th:if="${win}">Won!</h1>
+    <h1 th:if="${!win}">You lost!</h1>
 </div>
 
 
