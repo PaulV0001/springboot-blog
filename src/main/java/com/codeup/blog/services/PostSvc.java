@@ -7,6 +7,7 @@ import java.util.List;
 @Service
 public class PostSvc {
     private List<Post> posts = new ArrayList<>();
+
     public PostSvc() {
         createPosts();
     }
@@ -38,4 +39,5 @@ public class PostSvc {
                 4L, "Fourth Title", "Description 4"
         ));
     }
+
 }

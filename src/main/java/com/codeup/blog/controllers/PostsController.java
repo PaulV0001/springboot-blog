@@ -25,11 +25,7 @@ public class PostsController {
     @GetMapping("/posts")
     public String showAll(Model vmodel) {
 
-        ArrayList<Post> posts = new ArrayList<>();
-
-        posts.add(new Post("Example 1", "1"));
-
-        vmodel.addAttribute("posts", posts);
+        vmodel.addAttribute("posts", postSvc.findAll());
 
         return "posts/index";
     }
@@ -37,10 +33,8 @@ public class PostsController {
     @GetMapping("/posts/{id}")
     public String id(@PathVariable int id, Model vModel) {
 
-        Post post = new Post("Example 1","hello");
 
-
-        vModel.addAttribute("post", post);
+        vModel.addAttribute("post", postSvc.findOne(id));
         return "posts/show";
     }
 
