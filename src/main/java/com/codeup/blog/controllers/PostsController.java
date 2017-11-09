@@ -78,5 +78,6 @@ public class PostsController {
         postDao.delete((long) id);
         return "redirect:/posts";
     }
+
 }
 
