@@ -28,7 +28,6 @@ public class PostSvc {
     }
     private void createPosts() { // same data that was in SHOWALL in posts controller
         // create some post objects and add them to the posts list
-        // with the save method
 //        this.save(new Post(
 //                1L, "First Title", "Description 1"
 //        ));
