@@ -1,26 +1,28 @@
 package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Post;
+import com.codeup.blog.services.PostSvc;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @Controller
 public class PostsController {
 
+    private final PostSvc postSvc;
+
+    @Autowired
+    public PostsController(PostSvc postSvc) {
+        this.postSvc = postSvc;
+    }
+
     @GetMapping("/posts")
     public String showAll(Model vmodel) {
 
-        ArrayList<Post> posts = new ArrayList<>();
-
-        posts.add(new Post("Example 1", "1"));
-
-        vmodel.addAttribute("posts", posts);
+        vmodel.addAttribute("posts", postSvc.findAll());
 
         return "posts/index";
     }
@@ -28,20 +30,20 @@ public class PostsController {
     @GetMapping("/posts/{id}")
     public String id(@PathVariable int id, Model vModel) {
 
-        Post post = new Post("Example 1","hello");
 
-
-        vModel.addAttribute("post", post);
+        vModel.addAttribute("post", postSvc.findOne(id));
         return "posts/show";
     }
 
     @GetMapping("/posts/create")
-    public String create() {
-        return "view the form for creating a post";
+    public String create(Model vModel) {
+        vModel.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String postCreate() {
-        return "create a new post";
+    public String postCreate(@ModelAttribute Post post) {
+        postSvc.save(post);
+        return "redirect:/posts";
     }
 }

@@ -3,11 +3,17 @@
 <head th:replace="fragments/header :: main-header('All Posts')"></head>
 <body>
 <nav th:include="fragments/navbar :: mainNavbar"></nav>
-<!--list of post-->
-<div th:each="post : ${posts}">
-    <h1 th:text="${post.title}"></h1>
-    <p th:text="${post.body}"></p>
-</div>
+
+<form action="/posts/create" method="post" th:object="${post}">
+    Title:
+    <input th:field="*{title}" />
+    <br />
+    Description:
+    <input th:field="*{body}" />
+    <br />
+    <input type="submit" />
+</form>
+
 <footer th:include="fragments/footer :: footer"></footer>
 </body>
 </html>
